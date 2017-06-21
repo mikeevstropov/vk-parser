@@ -70,3 +70,57 @@ Sorry, but examples will not be provided for this library.
   - `array` - contain a keys "static", "embed" and "stream"
   - `false` - video is private (adult also) or blocked by law
   - `null` - source of the video is not supported
+
+## Development
+
+Clone
+
+```bash
+$ git clone https://github.com/mikeevstropov/vk-parser.git
+```
+
+Go to project
+
+```bash
+$ cd vk-parser
+```
+
+Install dependencies
+
+```bash
+$ composer install
+```
+
+Set permissions
+
+```bash
+$ sudo chmod 777 ./var -v -R
+```
+
+Configure testing environment in `phpunit.xml`. Make sure the environment
+variables "userLogin", "userPassword" and "applicationId" is not empty.
+
+```xml
+<phpunit>
+    <php>
+        <env name="logLevel" value="DEBUG"/>
+        <env name="logFile" value="var/logs/parser.test.log"/>
+        <env name="memcachedConnection" value="memcached://localhost"/>
+        <env name="userLogin" value=""/>
+        <env name="userPassword" value=""/>
+        <env name="applicationId" value=""/>
+    </php>
+</phpunit>
+```
+
+Increase composer timeout. Since composer by default set it to 300 seconds.
+
+```bash
+$ composer config --global process-timeout 900
+```
+
+Run the tests
+
+```bash
+$ composer test
+```
