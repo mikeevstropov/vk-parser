@@ -1,0 +1,10 @@
+<phpunit>
+    <php>
+        <env name="logLevel" value="DEBUG"/>
+        <env name="logFile" value="var/logs/parser.test.log"/>
+        <env name="memcachedConnection" value="memcached://localhost"/>
+        <env name="userLogin" value=""/>
+        <env name="userPassword" value=""/>
+        <env name="applicationId" value=""/>
+    </php>
+</phpunit>
