@@ -37,21 +37,21 @@ class VideoParser implements VideoParserInterface
     }
 
     /**
-     * Check video privacy
+     * Check the availability of video
      *
      * @param string $string Body of the source page
      *
      * @return bool
      */
-    protected function isPrivate(
+    protected function isAvailable(
         $string
     ) {
         Assert::stringNotEmpty(
             $string,
-            'To check video privacy, video parser is require an argument "string" as not empty string, %s given.'
+            'To check the availability of video, video parser is require an argument "string" as not empty string, %s given.'
         );
 
-        return strpos($string, 'message_page_title') > 0;
+        return strpos($string, 'message_page_title') === false;
     }
 
     /**
@@ -275,10 +275,10 @@ class VideoParser implements VideoParserInterface
             strlen($responseHtml)
         ));
 
-        if ($this->isPrivate($responseHtml)) {
+        if (!$this->isAvailable($responseHtml)) {
 
             $this->logger->debug(
-                'To get the source list, video parser was unable to parse private source, so will return "false".'
+                'To get the source list, video parser was unable to get access to the video, so will return "false".'
             );
 
             return false;
