@@ -22,7 +22,7 @@ Sorry, but examples will not be provided for this library.
   
   Arguments:
   - `client` _(GuzzleHttp\ClientInterface)_ - client instance required
-  - `logger` _(Psr\Log\LoggerInterface)_ - logger instance or null as default
+  - `logger` _(null|Psr\Log\LoggerInterface)_ - logger instance or null as default
   
   Returns:
   - `Mikeevstropov\VkParser\VideoParser`
@@ -34,11 +34,11 @@ Sorry, but examples will not be provided for this library.
   Arguments:
   - `ownerId` _(string)_ - the owner ID of the video is required
   - `logger` _(string)_ - ID of the video is required
-  - `userSession` _(GuzzleHttp\Cookie\CookieJar)_ - user session or null
+  - `userSession` _(null|GuzzleHttp\Cookie\CookieJar)_ - user session or null as default
   
   Returns:
   - `array` - contain a keys "static", "embed" and "stream"
-  - `false` - video is private (adult also) or blocked by law
+  - `false` - video does not exist, private (adult also) or blocked by law
   - `null` - source of the video is not supported
   
 ## ExtendedVideoParser Interface
@@ -49,8 +49,8 @@ Sorry, but examples will not be provided for this library.
   
   Arguments:
   - `client` _(GuzzleHttp\ClientInterface)_ - client instance required
-  - `logger` _(Psr\Log\LoggerInterface)_ - logger instance or null as default
-  - `cache` _(Psr\SimpleCache\CacheInterface)_ - cache instance or null as default
+  - `logger` _(null|Psr\Log\LoggerInterface)_ - logger instance or null as default
+  - `cache` _(null|Psr\SimpleCache\CacheInterface)_ - cache instance or null as default
   
   Returns:
   - `Mikeevstropov\VkParser\ExtendedVideoParser`
@@ -60,15 +60,15 @@ Sorry, but examples will not be provided for this library.
   _Getting the source list_
   
   Arguments:
-  - `ownerId` _(string)_ - the owner ID of the video is required
+  - `ownerId` _(string)_ - owner ID of the video is required
   - `logger` _(string)_ - ID of the video is required
-  - `userSession` _(GuzzleHttp\Cookie\CookieJar)_ - user session or null
+  - `userSession` _(null|GuzzleHttp\Cookie\CookieJar)_ - user session or null as default
   - `cache` _(bool)_ - use the cache, is true as default
-  - `cacheTtl` _(int)_ - number of seconds or null as default
+  - `cacheTtl` _(null|int)_ - number of seconds or null as default
   
   Returns:
   - `array` - contain a keys "static", "embed" and "stream"
-  - `false` - video is private (adult also) or blocked by law
+  - `false` - video does not exist, private (adult also) or blocked by law
   - `null` - source of the video is not supported
 
 ## Development
