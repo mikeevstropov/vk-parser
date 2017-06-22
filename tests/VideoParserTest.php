@@ -743,4 +743,24 @@ class VideoParserTest extends TestCase
             $sourceList
         );
     }
+
+    public function testCannotGetSourceListNotExisted()
+    {
+        $ownerId = '9000000';
+        $id = '9000000';
+
+        $parser = new VideoParser(
+            $this->client,
+            $this->logger
+        );
+
+        $sourceList = $parser->getSourceList(
+            $ownerId,
+            $id
+        );
+
+        Assert::false(
+            $sourceList
+        );
+    }
 }
