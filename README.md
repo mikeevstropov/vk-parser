@@ -32,8 +32,8 @@ Sorry, but examples will not be provided for this library.
   _Getting the source list_
   
   Arguments:
-  - `ownerId` _(string)_ - the owner ID of the video is required
-  - `logger` _(string)_ - ID of the video is required
+  - `ownerId` _(string)_ - ID of the video owner is required
+  - `id` _(string)_ - ID of the video is required
   - `userSession` _(null|GuzzleHttp\Cookie\CookieJar)_ - user session or null as default
   
   Returns:
@@ -60,8 +60,8 @@ Sorry, but examples will not be provided for this library.
   _Getting the source list_
   
   Arguments:
-  - `ownerId` _(string)_ - owner ID of the video is required
-  - `logger` _(string)_ - ID of the video is required
+  - `ownerId` _(string)_ - ID of the video owner is required
+  - `id` _(string)_ - ID of the video is required
   - `userSession` _(null|GuzzleHttp\Cookie\CookieJar)_ - user session or null as default
   - `cache` _(bool)_ - use the cache, is true as default
   - `cacheTtl` _(null|int)_ - number of seconds or null as default
