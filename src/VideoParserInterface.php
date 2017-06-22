@@ -14,9 +14,9 @@ interface VideoParserInterface
      * it will not be listed. The "stream" section is intend for a link to the
      * HLS stream.
      *
-     * If the source is private (adult also) or blocked by law the method will
-     * return "false", "null" will be returns if the source of the video is not
-     * supported.
+     * If the video does not exist, private (adult also) or blocked by law the
+     * method will return "false", "null" will be returns if the source of the
+     * video is not supported.
      *
      * Use the library mikeevstropov/vk-api to get the user session if you want
      * access to adult videos.
