@@ -114,34 +114,7 @@ class VideoParserTest extends TestCase
         );
     }
 
-
-    public function testIsPrivate()
-    {
-        $string = '<html><head><title>Ошибка</title></head><body><div class="message_page_title">Ошибка</div></body></html>';
-
-        $parser = new VideoParser(
-            $this->client,
-            $this->logger
-        );
-
-        $isPrivate = new \ReflectionMethod(
-            VideoParser::class,
-            'isPrivate'
-        );
-
-        $isPrivate->setAccessible(true);
-
-        $privacy = $isPrivate->invoke(
-            $parser,
-            $string
-        );
-
-        Assert::true(
-            $privacy
-        );
-    }
-
-    public function testIsNotPrivate()
+    public function testIsAvailable()
     {
         $string = '<html><head><title>Видеозаписи</title></head><body><div class="page"></div></body></html>';
 
@@ -150,20 +123,46 @@ class VideoParserTest extends TestCase
             $this->logger
         );
 
-        $isPrivate = new \ReflectionMethod(
+        $isAvailable = new \ReflectionMethod(
             VideoParser::class,
-            'isPrivate'
+            'isAvailable'
         );
 
-        $isPrivate->setAccessible(true);
+        $isAvailable->setAccessible(true);
 
-        $privacy = $isPrivate->invoke(
+        $value = $isAvailable->invoke(
+            $parser,
+            $string
+        );
+
+        Assert::true(
+            $value
+        );
+    }
+
+    public function testIsNotAvailable()
+    {
+        $string = '<html><head><title>Ошибка</title></head><body><div class="message_page_title">Ошибка</div></body></html>';
+
+        $parser = new VideoParser(
+            $this->client,
+            $this->logger
+        );
+
+        $isAvailable = new \ReflectionMethod(
+            VideoParser::class,
+            'isAvailable'
+        );
+
+        $isAvailable->setAccessible(true);
+
+        $value = $isAvailable->invoke(
             $parser,
             $string
         );
 
         Assert::false(
-            $privacy
+            $value
         );
     }
 
