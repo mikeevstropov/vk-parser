@@ -229,7 +229,7 @@ class VideoParserTest extends TestCase
         );
 
         Assert::stringNotEmpty(
-            $source['360']
+            $source['480']
         );
 
         Assert::stringNotEmpty(
