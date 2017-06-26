@@ -271,6 +271,91 @@ class VideoParserTest extends TestCase
         );
     }
 
+    public function testCanGetStaticSourcePostLive()
+    {
+        $string = '"postlive_mp4":"https:\/\/cs640407.userapi.com\/videos\/8e981da16d.480.mp4?extra=24",';
+
+        $parser = new VideoParser(
+            $this->client,
+            $this->logger
+        );
+
+        $getStaticSource = new \ReflectionMethod(
+            VideoParser::class,
+            'getStaticSource'
+        );
+
+        $getStaticSource->setAccessible(true);
+
+        $source = $getStaticSource->invoke(
+            $parser,
+            $string
+        );
+
+        Assert::isArray(
+            $source
+        );
+
+        Assert::keyNotExists(
+            $source,
+            '240'
+        );
+
+        Assert::keyNotExists(
+            $source,
+            '360'
+        );
+
+        Assert::keyExists(
+            $source,
+            '480'
+        );
+
+        Assert::keyNotExists(
+            $source,
+            '720'
+        );
+
+        Assert::keyNotExists(
+            $source,
+            '1080'
+        );
+
+        Assert::stringNotEmpty(
+            $source['480']
+        );
+    }
+
+    public function testCannotGetStaticSourcePostLive()
+    {
+        $string = '"postlive_mp4":"https:\/\/cs640407.userapi.com\/videos\/8e981da16d.mp4",';
+
+        $parser = new VideoParser(
+            $this->client,
+            $this->logger
+        );
+
+        $getStaticSource = new \ReflectionMethod(
+            VideoParser::class,
+            'getStaticSource'
+        );
+
+        $getStaticSource->setAccessible(true);
+
+        $source = $getStaticSource->invoke(
+            $parser,
+            $string
+        );
+
+        Assert::isArray(
+            $source
+        );
+
+        Assert::isEmpty(
+            $source
+        );
+    }
+
     public function testCanGetEmbedSource()
     {
         $string = 'ajax.preload(ght:100%;outline:0;\">\n      <iframe class=\"video_yt_player\" '

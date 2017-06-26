@@ -146,6 +146,41 @@ class VideoParser implements VideoParserInterface
 
         $source = array_filter($source);
 
+        $postLive = $stringS
+            ->between('postlive_mp4"', ',')
+            ->between('"', '"')
+            ->__toString();
+
+        $postLive = json_decode('"'. $postLive .'"') ?: false;
+
+        $this->logger->debug(sprintf(
+            $postLive
+                ? 'To get the static source, video parser was received a source link of "post live" that contain is "%s".'
+                : 'To get the static source, video parser could not received a source link of "post live".',
+            $postLive
+        ));
+
+        if (!$source && $postLive) {
+
+            preg_match('/\.(\d+)\.mp4/', $postLive, $qualityMatches);
+
+            $postLiveQuality = isset($qualityMatches[1])
+                && preg_match('/(240|360|480|720|1080)/', $qualityMatches[1])
+                    ? $qualityMatches[1]
+                    : null;
+
+            if ($postLiveQuality) {
+
+                $source[$postLiveQuality] = $postLive;
+
+                $this->logger->debug(sprintf(
+                    'To get the static source, video parser will set a source link of "post live" into "%s" section, because no other source received.',
+                    $postLiveQuality
+                ));
+
+            }
+        }
+
         return $source;
     }
 
